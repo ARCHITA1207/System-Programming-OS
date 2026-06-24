@@ -1,0 +1,27 @@
+#include <stdio.h>
+#include <sys/ipc.h>
+#include <sys/msg.h>
+
+struct msg
+{
+    long type;
+    char text[100];
+};
+
+int main()
+{
+    int msgid;
+
+    struct msg m;
+
+    msgid = msgget(1234, 0666);
+
+    msgrcv(msgid, &m,
+           sizeof(m.text),
+           1, 0);
+
+    printf("Received: %s\n",
+           m.text);
+
+    return 0;
+}
