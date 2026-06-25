@@ -1,18 +1,18 @@
-#include <stdio.h>
-#include <fcntl.h>
-#include <unistd.h>
-
+#include<stdio.h>
+#include<fcntl.h>
+#include<unistd.h>
 int main()
 {
     int fd;
-
+    char msg[] = "Hello Linux";
     fd = open("test.txt", O_CREAT | O_WRONLY, 0644);
-
-    write(fd, "Hello Linux", 11);
-
+    if(fd == -1)
+    {
+        printf("Error opening file\n");
+        return 1;
+    }
+    write(fd, msg, sizeof(msg)-1);
     close(fd);
-
-    printf("Data written successfully\n");
-
+    printf("File created and data stored\n");
     return 0;
 }
